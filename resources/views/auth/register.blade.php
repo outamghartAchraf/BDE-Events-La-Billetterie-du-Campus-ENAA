@@ -168,15 +168,7 @@
         <h1 class="font-display font-bold text-3xl text-paper mb-2">Créer ton compte</h1>
         <p class="text-mist text-sm mb-8">Rejoins la communauté étudiante et réserve en un clic.</p>
 
-        @if ($errors->any())
-          <div class="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3.5">
-            <ul class="text-red-300 text-sm space-y-1">
-              @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-        @endif
+ 
 
         <form action="{{ route('register.store') }}" method="POST" class="space-y-4">
           @csrf
@@ -184,30 +176,42 @@
           <div>
             <label for="name" class="block text-xs text-mist mb-1.5">Nom complet</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}"
-              placeholder="Sofia El Amrani" required autofocus
+              placeholder="Sofia El Amrani"   autofocus  
               oninput="document.getElementById('badge-name').textContent = this.value || 'Ton nom ici'; document.getElementById('badge-initial').textContent = (this.value.trim()[0] || 'B').toUpperCase();"
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
+                @error('name')
+                    <p class="text-red-300 text-sm mt-1">{{ $message }}</p>
+                @enderror
           </div>
 
           <div>
             <label for="email" class="block text-xs text-mist mb-1.5">Email étudiant</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}"
-              placeholder="prenom.nom@etu.campus.ma" required
+              placeholder="prenom.nom@etu.campus.ma" 
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
+                @error('email')
+                    <p class="text-red-300 text-sm mt-1">{{ $message }}</p>
+                @enderror
           </div>
 
           <div>
             <label for="password" class="block text-xs text-mist mb-1.5">Mot de passe</label>
-            <input id="password" type="password" name="password" required
+            <input id="password" type="password" name="password"  
               placeholder="••••••••"
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
+              @error('password')
+                <p class="text-red-300 text-sm mt-1">{{ $message }}</p>
+              @enderror
           </div>
 
           <div>
             <label for="password_confirmation" class="block text-xs text-mist mb-1.5">Confirmer le mot de passe</label>
-            <input id="password_confirmation" type="password" name="password_confirmation" required
+            <input id="password_confirmation" type="password" name="password_confirmation"  
               placeholder="••••••••"
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
+              @error('password_confirmation')
+                <p class="text-red-300 text-sm mt-1">{{ $message }}</p>
+              @enderror
           </div>
 
           <button type="submit"
