@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class AuthController extends Controller
     }
 
     public function registerStore(RegisterRequest $request)
-{
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -37,6 +38,29 @@ class AuthController extends Controller
         }
 
         return redirect('/student/dashboard')
+            ->with('success', 'Welcome Student!');
+    }
+
+    public function loginStore(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return back()
+                ->withErrors([
+                    'email' => 'The provided credentials do not match our records.',
+                ])
+                ->onlyInput('email');
+        }
+
+        $request->session()->regenerate();
+
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Welcome Admin!');
+        }
+
+        return redirect()->route('student.dashboard')
             ->with('success', 'Welcome Student!');
     }
 }
