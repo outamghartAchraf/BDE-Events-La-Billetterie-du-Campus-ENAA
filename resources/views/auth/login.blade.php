@@ -1,6 +1,6 @@
 {{--
-    resources/views/auth/register.blade.php
-    BDE-Events — Création de compte
+    resources/views/auth/login.blade.php
+    BDE-Events — Connexion
     Tailwind via CDN, aucune étape de build requise.
 --}}
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Créer un compte — BDE·Events</title>
+<title>Connexion — BDE·Events</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,25 +43,19 @@
 <style>
   body { background: #0A0C12; }
 
-  /* Dot-grid texture for the brand panel — no gradient blobs */
   .dot-grid {
     background-image: radial-gradient(rgba(231,233,238,0.08) 1px, transparent 1px);
     background-size: 22px 22px;
   }
 
-  /* Badge / ID-card signature element */
-  .badge {
-    position: relative;
-    isolation: isolate;
-  }
+  /* Badge / ID-card signature element — same language as register + event pages */
+  .badge { position: relative; isolation: isolate; }
   .badge::before {
     content: "";
     position: absolute;
-    top: -14px;
-    left: 50%;
+    top: -14px; left: 50%;
     transform: translateX(-50%);
-    width: 46px;
-    height: 46px;
+    width: 46px; height: 46px;
     border-radius: 999px;
     background: #0A0C12;
     box-shadow: inset 0 0 0 1px #2A3040;
@@ -70,11 +64,9 @@
   .badge::after {
     content: "";
     position: absolute;
-    top: -3px;
-    left: 50%;
+    top: -3px; left: 50%;
     transform: translateX(-50%);
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     border-radius: 999px;
     background: #05060a;
     z-index: 4;
@@ -100,6 +92,32 @@
   }
   .glow-btn:active { transform: translateY(0); }
 
+  /* Custom checkbox */
+  .chk {
+    appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 5px;
+    border: 1px solid #232838;
+    background: #12151F;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .chk:checked {
+    background: #7C5CFC;
+    border-color: #7C5CFC;
+  }
+  .chk:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px; top: 1.5px;
+    width: 4px; height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .rise { animation: none; }
     .glow-btn { transition: none; }
@@ -116,7 +134,7 @@
 
   <div class="min-h-screen grid lg:grid-cols-2">
 
-    {{-- LEFT — Brand panel with the membership-badge signature --}}
+    {{-- LEFT — Brand panel --}}
     <div class="hidden lg:flex relative flex-col justify-between bg-ink dot-grid px-14 py-12 border-r border-line overflow-hidden">
 
       <span class="font-display font-semibold tracking-tight text-sm text-mist">
@@ -127,31 +145,34 @@
         <div class="badge rise w-72 bg-panel border border-line rounded-[28px] shadow-2xl shadow-black/50 px-6 pt-9 pb-6">
 
           <div class="w-16 h-16 rounded-2xl bg-violet/15 border border-violet/30 flex items-center justify-center mx-auto mb-4">
-            <span id="badge-initial" class="font-display font-bold text-2xl text-violet-soft">B</span>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9B82FF" stroke-width="2">
+              <rect x="3" y="11" width="18" height="10" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
           </div>
 
-          <p id="badge-name" class="text-center font-display font-semibold text-base text-paper mb-0.5">
-            Ton nom ici
+          <p class="text-center font-display font-semibold text-base text-paper mb-0.5">
+            Bon retour
           </p>
-          <p class="text-center text-xs text-mist mb-5">Membre · Campus</p>
+          <p class="text-center text-xs text-mist mb-5">Ton pass t'attend</p>
 
           <div class="flex items-center justify-between text-[10px] font-mono text-mist border-t border-line pt-3.5">
             <span>ID·2026</span>
-            <span>ACTIF</span>
+            <span class="text-amber">SESSION</span>
           </div>
 
           <div class="barcode flex items-end h-6 mt-3 opacity-70" aria-hidden="true">
-            <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
-            <span style="height:80%"></span><span style="height:55%"></span><span style="height:90%"></span>
-            <span style="height:35%"></span><span style="height:70%"></span><span style="height:50%"></span>
-            <span style="height:95%"></span><span style="height:45%"></span><span style="height:65%"></span>
-            <span style="height:30%"></span><span style="height:85%"></span><span style="height:60%"></span>
+            <span style="height:50%"></span><span style="height:90%"></span><span style="height:35%"></span>
+            <span style="height:75%"></span><span style="height:45%"></span><span style="height:95%"></span>
+            <span style="height:30%"></span><span style="height:65%"></span><span style="height:55%"></span>
+            <span style="height:85%"></span><span style="height:40%"></span><span style="height:70%"></span>
+            <span style="height:60%"></span><span style="height:35%"></span><span style="height:80%"></span>
           </div>
         </div>
       </div>
 
       <p class="max-w-sm text-sm text-mist leading-relaxed">
-        Un seul compte pour réserver tes places, suivre tes billets et vivre chaque événement du campus.
+        Retrouve tes billets, tes inscriptions et les prochains événements du campus en un instant.
       </p>
     </div>
 
@@ -165,8 +186,15 @@
           </span>
         </div>
 
-        <h1 class="font-display font-bold text-3xl text-paper mb-2">Créer ton compte</h1>
-        <p class="text-mist text-sm mb-8">Rejoins la communauté étudiante et réserve en un clic.</p>
+        <h1 class="font-display font-bold text-3xl text-paper mb-2">Connecte-toi</h1>
+        <p class="text-mist text-sm mb-8">Accède à tes événements et à tes billets.</p>
+
+        {{-- Session status (Breeze) --}}
+        @if (session('status'))
+          <div class="mb-6 rounded-xl bg-violet/10 border border-violet/30 px-4 py-3.5 text-sm text-violet-soft">
+            {{ session('status') }}
+          </div>
+        @endif
 
         @if ($errors->any())
           <div class="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3.5">
@@ -178,48 +206,47 @@
           </div>
         @endif
 
-        <form action="{{ route('register') }}" method="POST" class="space-y-4">
+        <form action="{{ route('login') }}" method="POST" class="space-y-4">
           @csrf
-
-          <div>
-            <label for="name" class="block text-xs text-mist mb-1.5">Nom complet</label>
-            <input id="name" type="text" name="name" value="{{ old('name') }}"
-              placeholder="Sofia El Amrani" required autofocus
-              oninput="document.getElementById('badge-name').textContent = this.value || 'Ton nom ici'; document.getElementById('badge-initial').textContent = (this.value.trim()[0] || 'B').toUpperCase();"
-              class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
-          </div>
 
           <div>
             <label for="email" class="block text-xs text-mist mb-1.5">Email étudiant</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}"
-              placeholder="prenom.nom@etu.campus.ma" required
+              placeholder="prenom.nom@etu.campus.ma" required autofocus
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
           </div>
 
           <div>
-            <label for="password" class="block text-xs text-mist mb-1.5">Mot de passe</label>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="password" class="block text-xs text-mist">Mot de passe</label>
+              @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="text-xs text-violet-soft hover:text-paper transition-colors">
+                  Mot de passe oublié ?
+                </a>
+              @endif
+            </div>
             <input id="password" type="password" name="password" required
               placeholder="••••••••"
               class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
           </div>
 
-          <div>
-            <label for="password_confirmation" class="block text-xs text-mist mb-1.5">Confirmer le mot de passe</label>
-            <input id="password_confirmation" type="password" name="password_confirmation" required
-              placeholder="••••••••"
-              class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 text-sm text-paper placeholder:text-mist/50 focus:border-violet-soft transition-colors">
-          </div>
+          <label class="flex items-center gap-2.5 pt-1 cursor-pointer select-none">
+            <input type="checkbox" name="remember" class="chk">
+            <span class="text-sm text-mist">Rester connecté</span>
+          </label>
 
           <button type="submit"
             class="glow-btn w-full bg-violet hover:bg-violet-soft text-white font-display font-semibold text-sm rounded-lg py-3.5 mt-2">
-            Créer mon compte
+            Se connecter
           </button>
         </form>
 
-        <p class="text-center text-sm text-mist mt-7">
-          Déjà membre ?
-          <a href=" " class="text-violet-soft hover:text-paper font-semibold transition-colors">Se connecter</a>
-        </p>
+        @if (Route::has('register'))
+          <p class="text-center text-sm text-mist mt-7">
+            Pas encore de compte ?
+            <a href="{{ route('register') }}" class="text-violet-soft hover:text-paper font-semibold transition-colors">Créer un compte</a>
+          </p>
+        @endif
       </div>
     </div>
 
