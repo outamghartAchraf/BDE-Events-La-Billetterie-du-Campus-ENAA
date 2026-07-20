@@ -218,7 +218,7 @@
 
         <p class="text-center text-sm text-mist mt-7">
           Déjà membre ?
-          <a href=" " class="text-violet-soft hover:text-paper font-semibold transition-colors">Se connecter</a>
+          <a href="{{ route('login') }}" class="text-violet-soft hover:text-paper font-semibold transition-colors">Se connecter</a>
         </p>
       </div>
     </div>
