@@ -27,7 +27,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+
         ]);
 
         Auth::login($user);
@@ -62,5 +62,16 @@ class AuthController extends Controller
 
         return redirect()->route('student.dashboard')
             ->with('success', 'Welcome Student!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
