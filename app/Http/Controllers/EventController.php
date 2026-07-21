@@ -18,5 +18,16 @@ class EventController extends Controller
         return view('admin.events.index', compact('events'));
     }
 
+    /**
+     * Show create form.
+     */
+    public function create()
+    {
+        return view('admin.events.create');
+    }
 
+    /**
+     * Store a new event.
+     */
+  
 }
