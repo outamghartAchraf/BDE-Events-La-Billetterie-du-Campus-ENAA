@@ -12,7 +12,7 @@ class UpdateEventRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,45 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'description' => [
+                'required',
+                'string',
+            ],
+
+            'date' => [
+                'required',
+                'date',
+                'after_or_equal:today',
+            ],
+
+            'time' => [
+                'required',
+                'date_format:H:i',
+            ],
+
+            'location' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'capacity' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
         ];
     }
 }
