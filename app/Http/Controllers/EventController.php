@@ -29,5 +29,26 @@ class EventController extends Controller
     /**
      * Store a new event.
      */
-  
+    public function store(StoreEventRequest $request)
+    {
+        Event::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'date' => $request->date,
+            'time' => $request->time,
+            'location' => $request->location,
+            'price' => $request->price,
+            'capacity' => $request->capacity,
+            'created_by' => Auth::id(),
+        ]);
+
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'Event created successfully.');
+    }
+
+    /**
+     * Display one event.
+     */
+
 }
