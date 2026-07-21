@@ -55,5 +55,28 @@ class EventController extends Controller
         return view('admin.events.show', compact('event'));
     }
 
-    
+    /**
+     * Show edit form.
+     */
+    public function edit(Event $event)
+    {
+        return view('admin.events.edit', compact('event'));
+    }
+
+    /**
+     * Update event.
+     */
+    public function update(UpdateEventRequest $request, Event $event)
+    {
+        $event->update($request->validated());
+
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'Event updated successfully.');
+    }
+
+    /**
+     * Delete event.
+     */
+
 }
