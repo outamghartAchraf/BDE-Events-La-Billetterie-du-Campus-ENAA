@@ -24,10 +24,7 @@
 
         <!-- Header Actions -->
         <div class="flex items-center gap-3">
-            <a href="{{ route('admin.registrations.pdf', $registration->id) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-xs">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                Download PDF Ticket
-            </a>
+
         </div>
     </div>
 
@@ -41,7 +38,7 @@
             <div class="bg-white rounded-2xl border border-gray-200/80 shadow-xs p-6 space-y-5">
                 <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                     <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Event Information</h3>
-                    <a href="{{ route('admin.events.show', $registration->event->id ?? '#') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">
+                    <a href="" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">
                         View Event Page →
                     </a>
                 </div>
@@ -128,7 +125,6 @@
                     <label for="status" class="text-xs text-gray-500 font-medium">Update Status</label>
                     <select name="status" id="status" class="w-full px-3 py-2 rounded-xl text-xs border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white">
                         <option value="confirmed" {{ $registration->status === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                        <option value="pending" {{ $registration->status === 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="cancelled" {{ $registration->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
 

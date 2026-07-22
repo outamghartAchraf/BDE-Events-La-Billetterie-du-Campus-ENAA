@@ -122,14 +122,10 @@
                             <!-- Actions -->
                             <td class="py-4 px-5 text-right">
                                 <div class="inline-flex items-center gap-2">
-                                    <!-- Download Pass Ticket PDF -->
-                                    <a href="" title="Download PDF Ticket" target="_blank"
-                                       class="p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                    </a>
+   
 
                            <!-- View Registration Details -->
-<a href=" " title="View Registration Details"
+<a href="{{ route('admin.registrations.show', $registration) }}" title="View Registration Details"
    class="p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

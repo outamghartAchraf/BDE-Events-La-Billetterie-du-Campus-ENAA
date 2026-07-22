@@ -49,4 +49,19 @@ class AdminRegistrationController extends Controller
 
         return view('admin.registrations.show', compact('registration'));
     }
+
+    public function update(Request $request, Registration $registration)
+{
+    $validated = $request->validate([
+        'status' => 'required|in:pending,confirmed,cancelled',
+    ]);
+
+    $registration->update([
+        'status' => $validated['status'],
+    ]);
+
+    return redirect()
+        ->route('admin.registrations.show', $registration)
+        ->with('success', 'Registration status updated successfully.');
+}
 }

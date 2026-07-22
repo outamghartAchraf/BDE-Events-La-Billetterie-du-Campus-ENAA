@@ -32,6 +32,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::delete('/registrations/{registration}', [AdminRegistrationController::class, 'destroy'])
         ->name('admin.registrations.destroy');
+
+    Route::get('/registrations/{registration}', [AdminRegistrationController::class, 'show'])
+        ->name('admin.registrations.show');
+    Route::put('/registrations/{registration}', [AdminRegistrationController::class, 'update'])
+        ->name('admin.registrations.update');    
 });
 
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
