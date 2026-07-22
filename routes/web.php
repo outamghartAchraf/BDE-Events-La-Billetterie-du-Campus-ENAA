@@ -60,5 +60,5 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
         ->name('student.registrations.pdf'); 
     Route::get('/student/profile', [AuthController::class, 'profile'])->name('student.profile');  
     Route::get('/student/profile/edit', [AuthController::class, 'EditProfile'])->name('student.profile.edit');  
-    Route::post('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');    
+    Route::put('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');    
 });

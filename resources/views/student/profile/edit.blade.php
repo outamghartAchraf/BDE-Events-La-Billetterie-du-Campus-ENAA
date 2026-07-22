@@ -35,6 +35,23 @@
                 @enderror
             </div>
 
+                        <!-- Email -->
+            <div class="space-y-1.5">
+                <label for="phone" class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Phone Number</label>
+                <input type="text" name="phone" id="phone" value="{{ old('phone', auth()->user()->phone) }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                @error('phone')
+                    <p class="text-xs font-medium text-rose-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- speciality -->
+            <div class="space-y-1.5">
+                <label for="speciality" class="block text-xs font-bold text-gray-700 uppercase tracking-wider">speciality</label>
+                <input type="text" name="speciality" id="speciality" value="{{ old('speciality', auth()->user()->speciality) }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                @error('speciality')
+                    <p class="text-xs font-medium text-rose-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
  
 
             <!-- Password section -->

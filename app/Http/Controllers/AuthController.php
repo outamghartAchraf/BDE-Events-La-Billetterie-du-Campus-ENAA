@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateProfileRequest;
 
 class AuthController extends Controller
 {
@@ -77,13 +78,45 @@ class AuthController extends Controller
 
     public function profile()
     {
-        $user = Auth::user();
-        return view('student.profile.index', compact('user'));
+        $user = auth()->user();
+
+        $registrationsCount = $user->registrations()->count();
+
+        $upcomingEventsCount = $user->registrations()
+            ->whereHas('event', function ($query) {
+                $query->whereDate('date', '>=', today());
+            })
+            ->count();
+
+        return view('student.profile.index', compact(
+            'registrationsCount',
+            'upcomingEventsCount'
+        ));
     }
 
     public function EditProfile()
     {
         $user = Auth::user();
         return view('student.profile.edit', compact('user'));
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $user = Auth::user();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->speciality = $request->speciality;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('student.profile')
+            ->with('success', 'Profile updated successfully.');
     }
 }
