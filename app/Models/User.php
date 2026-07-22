@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class, 'created_by');
     }
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
 }
