@@ -42,4 +42,11 @@ class AdminRegistrationController extends Controller
             ->route('admin.registrations.index')
             ->with('success', 'Registration deleted successfully.');
     }
+
+    public function show(Registration $registration)
+    {
+        $registration->load(['user', 'event']);
+
+        return view('admin.registrations.show', compact('registration'));
+    }
 }

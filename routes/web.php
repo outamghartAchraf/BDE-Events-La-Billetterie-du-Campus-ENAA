@@ -31,7 +31,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('admin.registrations.index');
 
     Route::delete('/registrations/{registration}', [AdminRegistrationController::class, 'destroy'])
-        ->name('registrations.destroy');
+        ->name('admin.registrations.destroy');
 });
 
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
