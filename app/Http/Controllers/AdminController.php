@@ -18,14 +18,14 @@ class AdminController extends Controller
 
         $upcomingEvents = Event::whereDate('date', '>=', today())->count();
 
-        $events = Event::latest()->take(5)->get();
+        $recentEvents = Event::latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
             'totalEvents',
             'totalStudents',
             'totalRegistrations',
             'upcomingEvents',
-            'events'
+            'recentEvents'
         ));
     }
 }
