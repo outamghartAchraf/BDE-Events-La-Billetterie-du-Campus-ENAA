@@ -58,4 +58,6 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
     Route::get('/student/registrations/{registration}', [RegistrationController::class, 'show'])
         ->name('student.registrations.show');
+    Route::get('/student/registrations/{registration}/pdf', [RegistrationController::class, 'generatePDF'])
+        ->name('student.registrations.pdf');    
 });
