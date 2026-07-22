@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,9 +29,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
-    Route::get('/student/dashboard', function () {
-        return view('student.dashboard');
-    })->name('student.dashboard');
+    Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
 
     Route::get('/student/events', function () {
         return view('student.events.index');
