@@ -48,8 +48,8 @@
                     </a>
 
                     <a href="{{ route('student.profile') }}" 
-                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('student.profile.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-xs' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
-                        <svg class="w-4 h-4 {{ request()->routeIs('student.profile.*') ? 'text-indigo-600' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('student.profile') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-xs' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                        <svg class="w-4 h-4 {{ request()->routeIs('student.profile') ? 'text-indigo-600' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                         Profile
                     </a>
                 </nav>
