@@ -7,6 +7,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class RegistrationController extends Controller
@@ -105,4 +107,23 @@ class RegistrationController extends Controller
     {
         //
     }
+
+public function generatePDF(Registration $registration)
+{
+     $registration->load('event');
+     
+     $codeToGenerate = $registration->code ?? ('REF-' . str_pad($registration->id, 6, '0', STR_PAD_LEFT));
+     $qrCodeSvg = base64_encode(
+        QrCode::format('svg')
+            ->size(120)
+            ->errorCorrection('H')
+            ->generate($codeToGenerate)
+    );
+
+    $pdf = Pdf::loadView('student.registrations.pdf', compact('registration', 'qrCodeSvg'));
+    
+    return $pdf->download('ticket-' . $codeToGenerate . '.pdf');
+}
+
+ 
 }
