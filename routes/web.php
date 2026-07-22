@@ -7,6 +7,7 @@ use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\Admin\AdminRegistrationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::resource('events', EventController::class);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/registrations', [AdminRegistrationController::class, 'index'])
+        ->name('admin.registrations.index');
+
+    Route::delete('/registrations/{registration}', [AdminRegistrationController::class, 'destroy'])
+        ->name('admin.registrations.destroy');
+
+    Route::get('/registrations/{registration}', [AdminRegistrationController::class, 'show'])
+        ->name('admin.registrations.show');
+    Route::put('/registrations/{registration}', [AdminRegistrationController::class, 'update'])
+        ->name('admin.registrations.update');    
 });
 
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
@@ -57,8 +69,8 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
     Route::get('/student/registrations/{registration}', [RegistrationController::class, 'show'])
         ->name('student.registrations.show');
     Route::get('/student/registrations/{registration}/pdf', [RegistrationController::class, 'generatePDF'])
-        ->name('student.registrations.pdf'); 
-    Route::get('/student/profile', [AuthController::class, 'profile'])->name('student.profile');  
-    Route::get('/student/profile/edit', [AuthController::class, 'EditProfile'])->name('student.profile.edit');  
-    Route::post('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');    
+        ->name('student.registrations.pdf');
+    Route::get('/student/profile', [AuthController::class, 'profile'])->name('student.profile');
+    Route::get('/student/profile/edit', [AuthController::class, 'EditProfile'])->name('student.profile.edit');
+    Route::put('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');
 });
