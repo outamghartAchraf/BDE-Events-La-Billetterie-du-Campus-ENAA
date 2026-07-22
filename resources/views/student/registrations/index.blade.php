@@ -23,69 +23,7 @@
         </form>
     </div>
 
-@php
-$registrations = collect([
-    (object)[
-        'id' => 1,
-        'code' => 'BDE-2026-A8F32',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'Laravel Workshop',
-            'location' => 'ENAA Campus',
-            'date' => '25 Jul 2026',
-            'price' => 0,
-        ],
-    ],
-
-    (object)[
-        'id' => 2,
-        'code' => 'BDE-2026-K9L21',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'React Conference',
-            'location' => 'Conference Hall',
-            'date' => '28 Jul 2026',
-            'price' => 150,
-        ],
-    ],
-
-    (object)[
-        'id' => 3,
-        'code' => 'BDE-2026-P5R87',
-        'status' => 'Pending',
-        'event' => (object)[
-            'title' => 'AI Bootcamp',
-            'location' => 'Room A12',
-            'date' => '05 Aug 2026',
-            'price' => 80,
-        ],
-    ],
-
-    (object)[
-        'id' => 4,
-        'code' => 'BDE-2026-X7D45',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'Hackathon 2026',
-            'location' => 'Innovation Center',
-            'date' => '15 Aug 2026',
-            'price' => 0,
-        ],
-    ],
-
-    (object)[
-        'id' => 5,
-        'code' => 'BDE-2026-Z3M90',
-        'status' => 'Cancelled',
-        'event' => (object)[
-            'title' => 'Cyber Security Day',
-            'location' => 'Main Auditorium',
-            'date' => '22 Aug 2026',
-            'price' => 200,
-        ],
-    ],
-]);
-@endphp
+ 
     <!-- Tickets Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($registrations as $registration)
