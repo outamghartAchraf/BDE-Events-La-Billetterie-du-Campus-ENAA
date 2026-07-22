@@ -14,4 +14,9 @@ class EventController extends Controller
 
         return view('student.events.index', compact('events'));
     }
+
+    public function show(Event $event)
+    {
+        return view('student.events.show', compact('event'));
+    }
 }
