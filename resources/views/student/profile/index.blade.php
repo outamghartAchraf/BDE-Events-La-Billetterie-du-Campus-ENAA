@@ -72,6 +72,15 @@
                 <span class="font-semibold text-gray-900 mt-1 block">{{ auth()->user()->department ?? 'Computer Science' }}</span>
             </div>
         </div>
+
+        <div>
+    <span class="text-gray-400 font-medium block">Member Since</span>
+    <span class="font-semibold text-gray-900 mt-1 block">
+        {{ auth()->user()->created_at->format('d M Y') }}
+    </span>
+</div>
     </div>
+
+    
 </div>
 @endsection
