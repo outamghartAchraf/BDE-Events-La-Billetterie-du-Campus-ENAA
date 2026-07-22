@@ -43,9 +43,9 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
     })->name('student.registrations.index');
 
 
-    Route::get('/events', [StudentEventController::class, 'index'])
-        ->name('events.index');
+    Route::get('/student/events', [StudentEventController::class, 'index'])
+        ->name('student.events.index');
 
-    Route::get('/events/{event}', [StudentEventController::class, 'show'])
-        ->name('events.show');
+    Route::get('/student/events/{event}', [StudentEventController::class, 'show'])
+        ->name('student.events.show');
 });

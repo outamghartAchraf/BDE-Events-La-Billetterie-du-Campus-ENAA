@@ -95,7 +95,7 @@
                     <!-- Registration CTA -->
                     <div class="pt-4 border-t border-gray-200/60">
                         @if(($event->remaining_seats ?? 10) > 0)
-                            <form method="POST" action="{{ route('student.events.register', $event->id) }}">
+                            <form method="POST" action=" ">
                                 @csrf
                                 <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
                                     Reserve My Seat
