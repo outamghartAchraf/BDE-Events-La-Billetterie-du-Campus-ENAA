@@ -12,7 +12,7 @@
         <div class="relative z-10 max-w-2xl">
             <span class="px-3 py-1 text-xs font-semibold bg-indigo-500/30 text-indigo-200 rounded-full border border-indigo-400/20">Student Portal</span>
             <h2 class="text-3xl font-extrabold tracking-tight mt-3">
-                Welcome back, {{ auth()->user()->name }} 👋
+                Welcome back, {{ auth()->user()->name }} 
             </h2>
             <p class="mt-2 text-indigo-100 text-sm leading-relaxed">
                 Discover upcoming university events, manage your ticket reservations, and stay involved on campus.

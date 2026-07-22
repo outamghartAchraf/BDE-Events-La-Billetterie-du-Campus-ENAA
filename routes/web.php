@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,9 +20,7 @@ Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store'
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
-    Route::get('/admin/dashboard', function () {
-        return  view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('events', EventController::class);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
