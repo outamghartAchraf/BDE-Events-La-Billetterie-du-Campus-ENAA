@@ -12,12 +12,7 @@
             <p class="text-xs text-gray-500 mt-1">Monitor, filter, and manage student event tickets and pass statuses.</p>
         </div>
 
-        <div class="flex items-center gap-3">
-            <a href="{{ route('admin.registrations.export') ?? '#' }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-xs transition-all">
-                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                Export CSV
-            </a>
-        </div>
+ 
     </div>
 
     <!-- Filters & Search Form -->
@@ -128,13 +123,13 @@
                             <td class="py-4 px-5 text-right">
                                 <div class="inline-flex items-center gap-2">
                                     <!-- Download Pass Ticket PDF -->
-                                    <a href="{{ route('admin.registrations.pdf', $registration->id) }}" title="Download PDF Ticket" target="_blank"
+                                    <a href="" title="Download PDF Ticket" target="_blank"
                                        class="p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                     </a>
 
                                     <!-- Delete / Cancel Action -->
-                                    <form action="{{ route('admin.registrations.destroy', $registration->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this registration?');">
+                                    <form action="" method="POST" onsubmit="return confirm('Are you sure you want to cancel this registration?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" title="Cancel Registration" class="p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-rose-50 hover:text-rose-600 transition-colors">
