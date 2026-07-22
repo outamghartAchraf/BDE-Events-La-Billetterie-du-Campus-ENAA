@@ -80,4 +80,10 @@ class AuthController extends Controller
         $user = Auth::user();
         return view('student.profile.index', compact('user'));
     }
+
+    public function EditProfile()
+    {
+        $user = Auth::user();
+        return view('student.profile.edit', compact('user'));
+    }
 }

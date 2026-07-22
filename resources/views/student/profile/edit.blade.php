@@ -9,7 +9,7 @@
             <h2 class="text-base font-bold text-gray-900">Update Profile Details</h2>
             <p class="text-xs text-gray-400 mt-0.5">Keep your account details up to date</p>
         </div>
-        <a href="{{ route('student.profile.index') }}" class="text-xs font-semibold text-gray-500 hover:text-gray-800 transition-colors">Cancel</a>
+        <a href="{{ route('student.profile') }}" class="text-xs font-semibold text-gray-500 hover:text-gray-800 transition-colors">Cancel</a>
     </div>
 
     <div class="bg-white rounded-3xl border border-gray-200/80 shadow-xs p-8">
@@ -35,14 +35,7 @@
                 @enderror
             </div>
 
-            <!-- Phone -->
-            <div class="space-y-1.5">
-                <label for="phone" class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Phone Number</label>
-                <input type="text" name="phone" id="phone" value="{{ old('phone', auth()->user()->phone) }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all" placeholder="+212 600-000000">
-                @error('phone')
-                    <p class="text-xs font-medium text-rose-600 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+ 
 
             <!-- Password section -->
             <div class="pt-6 border-t border-gray-100 space-y-4">
@@ -66,7 +59,7 @@
 
             <!-- Form Actions -->
             <div class="pt-6 border-t border-gray-100 flex items-center justify-end gap-3">
-                <a href="{{ route('student.profile.index') }}" class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
+                <a href="{{ route('student.profile') }}" class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
                     Cancel
                 </a>
                 <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-md">

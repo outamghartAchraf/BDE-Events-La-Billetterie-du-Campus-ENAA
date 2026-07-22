@@ -110,14 +110,10 @@ class RegistrationController extends Controller
 
 public function generatePDF(Registration $registration)
 {
-    // شحن علاقة الفعالية
-    $registration->load('event');
-
-    // التأكد من أن التذكرة تملك كود، وفي حال كان null نستخدم الـ ID بدلاً عنه
-    $codeToGenerate = $registration->code ?? ('REF-' . str_pad($registration->id, 6, '0', STR_PAD_LEFT));
-
-    // توليد الـ QR Code كـ SVG وتحويله إلى Base64
-    $qrCodeSvg = base64_encode(
+     $registration->load('event');
+     
+     $codeToGenerate = $registration->code ?? ('REF-' . str_pad($registration->id, 6, '0', STR_PAD_LEFT));
+     $qrCodeSvg = base64_encode(
         QrCode::format('svg')
             ->size(120)
             ->errorCorrection('H')
