@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -12,7 +13,12 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        //
+        $registrations = Registration::with('event')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
+        return view('student.registrations.index', compact('registrations'));
     }
 
     /**
