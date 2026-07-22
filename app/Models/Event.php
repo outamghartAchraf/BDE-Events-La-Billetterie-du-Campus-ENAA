@@ -29,4 +29,10 @@ class Event extends Model
     {
         return $this->hasMany(Registration::class);
     }
+
+
+    public function remainingPlaces()
+    {
+        return $this->capacity - $this->registrations()->count();
+    }
 }

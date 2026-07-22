@@ -37,9 +37,16 @@
                     </span>
 
                     <!-- Remaining Seats Badge -->
-                    <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold backdrop-blur-md {{ ($event->remaining_seats ?? 10) > 0 ? 'bg-emerald-500/90 text-white' : 'bg-rose-500/90 text-white' }}">
-                        {{ ($event->remaining_seats ?? 10) > 0 ? ($event->remaining_seats ?? 10) . ' Places Left' : 'Full' }}
+                    @if ($event->remainingPlaces() > 0)
+                              <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold backdrop-blur-md {{ $event->remainingPlaces() > 0 ? 'bg-emerald-500/90 text-white' : 'bg-rose-500/90 text-white' }}">
+                     {{ $event->remainingPlaces() }} places left
                     </span>
+                    @else
+                        <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold backdrop-blur-md bg-rose-500/90 text-white">
+                            Event Full
+                        </span>
+                    @endif
+              
                 </div>
 
                 <!-- Card Content -->
@@ -62,24 +69,49 @@
                     </div>
 
                     <!-- Actions -->
-                    <div class="grid grid-cols-2 gap-2 pt-2">
-                        <a href="{{ route('student.events.show', $event->id) }}" class="inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
-                            Details
-                        </a>
+<div class="grid grid-cols-2 gap-2 pt-2">
 
-                        @if(($event->remaining_seats ?? 10) > 0)
-                            <form method="POST" action=" ">
-                                @csrf
-                                <button type="submit" class="w-full inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-xs">
-                                    Register
-                                </button>
-                            </form>
-                        @else
-                            <button disabled class="w-full inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-100 cursor-not-allowed">
-                                Event Full
-                            </button>
-                        @endif
-                    </div>
+    <a href="{{ route('student.events.show', $event) }}"
+        class="inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
+        Details
+    </a>
+
+    @if(Auth::user()->registrations->contains('event_id', $event->id))
+
+        <a href="{{ route('student.tickets.index') }}"
+            class="inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors">
+
+            ✓ Already
+
+        </a>
+
+    @elseif($event->remainingPlaces() > 0)
+
+        <form action="{{ route('student.registrations.store', $event) }}" method="POST">
+            @csrf
+
+            <button
+                class="w-full inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-all">
+
+                Register
+
+            </button>
+
+        </form>
+
+    @else
+
+        <button
+            disabled
+            class="inline-flex items-center justify-center px-3 py-2 rounded-xl text-xs font-semibold bg-rose-100 text-rose-600 cursor-not-allowed">
+
+            Event Full
+
+        </button>
+
+    @endif
+
+</div>
                 </div>
             </div>
         @empty

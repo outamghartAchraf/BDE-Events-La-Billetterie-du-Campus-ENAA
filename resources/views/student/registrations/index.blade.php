@@ -51,7 +51,7 @@
                         <span class="font-bold text-gray-900">{{ $registration->event->price > 0 ? number_format($registration->event->price, 2) . ' DH' : 'Free' }}</span>
                     </div>
 
-                    <a href=" " class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200">
+                    <a href="{{ route('student.registrations.show', $registration->id) }}" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200">
                         View Digital Pass
                     </a>
                 </div>

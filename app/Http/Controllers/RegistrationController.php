@@ -64,8 +64,7 @@ class RegistrationController extends Controller
             'status' => 'confirmed',
         ]);
 
-        return redirect()
-            ->route('student.registrations.index')
+        return redirect()->route('student.tickets.index')
             ->with('success', 'Registration completed successfully.');
     }
 

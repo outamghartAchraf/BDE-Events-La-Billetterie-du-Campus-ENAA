@@ -50,6 +50,12 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
     Route::get('/student/events/{event}', [StudentEventController::class, 'show'])
         ->name('student.events.show');
 
-        Route::get('/student/registrations', [RegistrationController::class, 'index'])
-            ->name('student.tickets.index');
+    Route::get('/student/registrations', [RegistrationController::class, 'index'])
+        ->name('student.tickets.index');
+
+    Route::post('/student/events/{event}/register', [RegistrationController::class, 'store'])
+        ->name('student.registrations.store');
+
+    Route::get('/student/registrations/{registration}', [RegistrationController::class, 'show'])
+        ->name('student.registrations.show');
 });
