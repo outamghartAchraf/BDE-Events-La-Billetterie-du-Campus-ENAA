@@ -73,9 +73,14 @@ class RegistrationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Registration $registration)
+     public function show(Registration $registration)
     {
-        //
+        // Ensure the student can only view their own ticket
+        abort_if($registration->user_id !== Auth::id(), 403);
+
+        $registration->load('event', 'user');
+
+        return view('student.registrations.show', compact('registration'));
     }
 
     /**
