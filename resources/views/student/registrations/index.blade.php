@@ -23,69 +23,7 @@
         </form>
     </div>
 
-@php
-$registrations = collect([
-    (object)[
-        'id' => 1,
-        'code' => 'BDE-2026-A8F32',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'Laravel Workshop',
-            'location' => 'ENAA Campus',
-            'date' => '25 Jul 2026',
-            'price' => 0,
-        ],
-    ],
-
-    (object)[
-        'id' => 2,
-        'code' => 'BDE-2026-K9L21',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'React Conference',
-            'location' => 'Conference Hall',
-            'date' => '28 Jul 2026',
-            'price' => 150,
-        ],
-    ],
-
-    (object)[
-        'id' => 3,
-        'code' => 'BDE-2026-P5R87',
-        'status' => 'Pending',
-        'event' => (object)[
-            'title' => 'AI Bootcamp',
-            'location' => 'Room A12',
-            'date' => '05 Aug 2026',
-            'price' => 80,
-        ],
-    ],
-
-    (object)[
-        'id' => 4,
-        'code' => 'BDE-2026-X7D45',
-        'status' => 'Confirmed',
-        'event' => (object)[
-            'title' => 'Hackathon 2026',
-            'location' => 'Innovation Center',
-            'date' => '15 Aug 2026',
-            'price' => 0,
-        ],
-    ],
-
-    (object)[
-        'id' => 5,
-        'code' => 'BDE-2026-Z3M90',
-        'status' => 'Cancelled',
-        'event' => (object)[
-            'title' => 'Cyber Security Day',
-            'location' => 'Main Auditorium',
-            'date' => '22 Aug 2026',
-            'price' => 200,
-        ],
-    ],
-]);
-@endphp
+ 
     <!-- Tickets Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($registrations as $registration)
@@ -113,7 +51,7 @@ $registrations = collect([
                         <span class="font-bold text-gray-900">{{ $registration->event->price > 0 ? number_format($registration->event->price, 2) . ' DH' : 'Free' }}</span>
                     </div>
 
-                    <a href=" " class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200">
+                    <a href="{{ route('student.registrations.show', $registration->id) }}" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200">
                         View Digital Pass
                     </a>
                 </div>

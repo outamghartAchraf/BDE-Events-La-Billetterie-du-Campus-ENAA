@@ -24,4 +24,15 @@ class Event extends Model
     {
         return $this->hasMany(Event::class, 'created_by');
     }
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+
+
+    public function remainingPlaces()
+    {
+        return $this->capacity - $this->registrations()->count();
+    }
 }

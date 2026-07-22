@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Student\EventController as StudentEventController;
+use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,4 +49,13 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
     Route::get('/student/events/{event}', [StudentEventController::class, 'show'])
         ->name('student.events.show');
+
+    Route::get('/student/registrations', [RegistrationController::class, 'index'])
+        ->name('student.tickets.index');
+
+    Route::post('/student/events/{event}/register', [RegistrationController::class, 'store'])
+        ->name('student.registrations.store');
+
+    Route::get('/student/registrations/{registration}', [RegistrationController::class, 'show'])
+        ->name('student.registrations.show');
 });
