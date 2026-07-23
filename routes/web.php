@@ -8,19 +8,27 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Admin\AdminRegistrationController;
+use App\Models\Event;
 
+
+// Home Page
 Route::get('/', function () {
-    return view('welcome');
+    $events = Event::latest()->take(4)->get();
+
+    return view('welcome', compact('events'));
+})->name('home');
+
+// Guest Routes
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
+
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store');
 });
 
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-
-Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
-Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store');
-
+// Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-
 
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
@@ -36,24 +44,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/registrations/{registration}', [AdminRegistrationController::class, 'show'])
         ->name('admin.registrations.show');
     Route::put('/registrations/{registration}', [AdminRegistrationController::class, 'update'])
-        ->name('admin.registrations.update');    
+        ->name('admin.registrations.update');
 });
 
+// Student Routes
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
-
-    Route::get('/student/events', function () {
-        return view('student.events.index');
-    })->name('student.events.index');
-
-
-    Route::get('/student/tickets', function () {
-
-        return view('student.registrations.index');
-    })->name('student.registrations.index');
-
-
     Route::get('/student/events', [StudentEventController::class, 'index'])
         ->name('student.events.index');
 
@@ -68,8 +65,10 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
     Route::get('/student/registrations/{registration}', [RegistrationController::class, 'show'])
         ->name('student.registrations.show');
+
     Route::get('/student/registrations/{registration}/pdf', [RegistrationController::class, 'generatePDF'])
         ->name('student.registrations.pdf');
+
     Route::get('/student/profile', [AuthController::class, 'profile'])->name('student.profile');
     Route::get('/student/profile/edit', [AuthController::class, 'EditProfile'])->name('student.profile.edit');
     Route::put('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');

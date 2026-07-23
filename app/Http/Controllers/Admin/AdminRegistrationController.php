@@ -30,6 +30,7 @@ class AdminRegistrationController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
+       
 
         return view('admin.registrations.index', compact('registrations'));
     }

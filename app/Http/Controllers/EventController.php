@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class EventController extends Controller
@@ -29,24 +30,22 @@ class EventController extends Controller
     /**
      * Store a new event.
      */
-    public function store(StoreEventRequest $request)
-    {
-        Event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'date' => $request->date,
-            'time' => $request->time,
-            'location' => $request->location,
-            'price' => $request->price,
-            'capacity' => $request->capacity,
-            'created_by' => Auth::id(),
-        ]);
+public function store(StoreEventRequest $request)
+{
+    $data = $request->validated();
 
-        return redirect()
-            ->route('events.index')
-            ->with('success', 'Event created successfully.');
+    $data['created_by'] = Auth::id();
+
+    if ($request->hasFile('image')) {
+        $data['image_path'] = $request->file('image')->store('events', 'public');
     }
 
+    Event::create($data);
+
+    return redirect()
+        ->route('events.index')
+        ->with('success', 'Event created successfully.');
+}
     /**
      * Display one event.
      */
@@ -66,14 +65,27 @@ class EventController extends Controller
     /**
      * Update event.
      */
-    public function update(UpdateEventRequest $request, Event $event)
-    {
-        $event->update($request->validated());
+public function update(UpdateEventRequest $request, Event $event)
+{
+    $data = $request->validated();
 
-        return redirect()
-            ->route('events.index')
-            ->with('success', 'Event updated successfully.');
+    if ($request->hasFile('image')) {
+
+        // Delete old image
+        if ($event->image_path && Storage::disk('public')->exists($event->image_path)) {
+            Storage::disk('public')->delete($event->image_path);
+        }
+
+        // Store new image
+        $data['image_path'] = $request->file('image')->store('events', 'public');
     }
+
+    $event->update($data);
+
+    return redirect()
+        ->route('events.index')
+        ->with('success', 'Event updated successfully.');
+}
 
     /**
      * Delete event.
