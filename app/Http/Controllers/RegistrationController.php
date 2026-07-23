@@ -39,6 +39,8 @@ class RegistrationController extends Controller
      */
     public function store(Event $event)
     {
+        $this->authorize('create', Registration::class);
+
         // 1. Check if the student is already registered
         $alreadyRegistered = Registration::where('user_id', Auth::id())
             ->where('event_id', $event->id)
@@ -76,11 +78,9 @@ class RegistrationController extends Controller
      */
      public function show(Registration $registration)
     {
-        // Ensure the student can only view their own ticket
-        abort_if($registration->user_id !== Auth::id(), 403);
-
+         $this->authorize('view', $registration);
         $registration->load('event', 'user');
-
+        
         return view('student.registrations.show', compact('registration'));
     }
 
