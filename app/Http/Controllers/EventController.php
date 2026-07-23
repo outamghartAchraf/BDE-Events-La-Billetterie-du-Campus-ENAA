@@ -8,6 +8,7 @@ use App\Http\Requests\StoreEventRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEventRequest;
 use Illuminate\Support\Facades\Storage;
+ 
 
 
 class EventController extends Controller
@@ -24,6 +25,7 @@ class EventController extends Controller
      */
     public function create()
     {
+          $this->authorize('create', Event::class);
         return view('admin.events.create');
     }
 
@@ -59,6 +61,7 @@ public function store(StoreEventRequest $request)
      */
     public function edit(Event $event)
     {
+            $this->authorize('update', $event);
         return view('admin.events.edit', compact('event'));
     }
 
@@ -67,6 +70,8 @@ public function store(StoreEventRequest $request)
      */
 public function update(UpdateEventRequest $request, Event $event)
 {
+      $this->authorize('update', $event);
+
     $data = $request->validated();
 
     if ($request->hasFile('image')) {
@@ -92,6 +97,8 @@ public function update(UpdateEventRequest $request, Event $event)
      */
     public function destroy(Event $event)
     {
+        $this->authorize('delete', $event);
+
         $event->delete();
 
         return redirect()

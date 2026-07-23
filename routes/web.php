@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome', compact('events'));
 })->name('home');
 
+
 // Guest Routes
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -27,13 +28,15 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store');
 });
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('events', EventController::class);
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
 
     Route::get('/registrations', [AdminRegistrationController::class, 'index'])
         ->name('admin.registrations.index');
