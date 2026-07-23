@@ -12,7 +12,7 @@
         </div>
 
         <!-- Filter/Search -->
-        <form method="GET" action="{{ route('student.registrations.index') }}" class="flex items-center gap-3">
+        <form method="GET" action="{{ route('student.tickets.index') }}" class="flex items-center gap-3">
             <div class="relative">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by event or code..." class="pl-9 pr-4 py-2 bg-white border border-gray-200/80 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-gray-400 shadow-xs">
                 <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>

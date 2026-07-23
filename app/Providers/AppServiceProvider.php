@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Event;
+use App\Policies\EventPolicy;
+use App\Models\Registration;
+use App\Policies\RegistrationPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+          Gate::policy(Event::class, EventPolicy::class);
+          Gate::policy(Registration::class, RegistrationPolicy::class);
     }
 }

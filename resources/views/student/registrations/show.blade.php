@@ -95,3 +95,136 @@
     </div>
 </div>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+
+@extends('layouts.student')
+@section('title', 'Digital Event Pass')
+@section('page-title', 'Ticket Pass Details')
+
+@section('content')
+<div class="max-w-2xl mx-auto space-y-6" style="font-family:'Inter',sans-serif;">
+    <!-- Back Button -->
+    <a href="{{ route('student.registrations.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-[#1B1B2F]/50 hover:text-[#C1443C] transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to My Tickets
+    </a>
+
+    <!-- Premium Digital Ticket Pass -->
+    <div class="bg-white rounded-3xl border border-[#C9C2AE]/60 shadow-2xl overflow-hidden">
+        <!-- Pass Header -->
+        <div class="relative bg-[#1B1B2F] p-8 text-white overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-[#E8A33D]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-[#E8A33D]/10 border border-[#E8A33D]/30 text-[#E8A33D]" style="font-family:'Space Mono',monospace;">Official Pass</span>
+                @php
+                    $passStatusClasses = [
+                        'confirmed' => 'bg-[#4B7A5D] text-white',
+                        'pending'   => 'bg-[#E8A33D] text-[#1B1B2F]',
+                        'cancelled' => 'bg-[#C1443C] text-white',
+                    ][$registration->status ?? 'confirmed'] ?? 'bg-white/10 text-white';
+                @endphp
+                <span class="px-3 py-1 rounded-full text-xs font-bold shadow-sm {{ $passStatusClasses }}">
+                    {{ ucfirst($registration->status ?? 'Confirmed') }}
+                </span>
+            </div>
+            <h2 class="relative z-10 text-2xl font-bold tracking-tight mt-6" style="font-family:'Fraunces',serif;">{{ $registration->event->title }}</h2>
+            <p class="relative z-10 text-xs text-white/50 mt-1 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#E8A33D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                {{ $registration->event->location }}
+            </p>
+        </div>
+
+        <!-- Ticket Cutout Pattern visual separator -->
+        <div class="relative bg-white h-4 border-b-2 border-dashed border-[#C9C2AE] flex justify-between items-center px-4">
+            <div class="w-6 h-6 rounded-full bg-[#FAF7EF] -ml-7 border-r border-[#C9C2AE]/70"></div>
+            <div class="w-6 h-6 rounded-full bg-[#FAF7EF] -mr-7 border-l border-[#C9C2AE]/70"></div>
+        </div>
+
+        <!-- Pass Body -->
+        <div class="p-8 space-y-8">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 text-xs">
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Attendee</span>
+                    <span class="font-bold text-[#1B1B2F] mt-0.5 block">{{ auth()->user()->name }}</span>
+                </div>
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Reservation Code</span>
+                    <span class="font-bold text-[#B87A1F] mt-0.5 block" style="font-family:'Space Mono',monospace;">{{ $registration->code }}</span>
+                </div>
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Price</span>
+                    <span class="font-bold text-[#1B1B2F] mt-0.5 block" style="font-family:'Space Mono',monospace;">{{ $registration->event->price > 0 ? number_format($registration->event->price, 2) . ' DH' : 'Free' }}</span>
+                </div>
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Date</span>
+                    <span class="font-bold text-[#1B1B2F]/80 mt-0.5 block">{{ $registration->event->date }}</span>
+                </div>
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Time</span>
+                    <span class="font-bold text-[#1B1B2F]/80 mt-0.5 block">{{ $registration->event->time ?? '10:00 AM' }}</span>
+                </div>
+                <div>
+                    <span class="text-[#1B1B2F]/40 font-medium block">Issued On</span>
+                    <span class="font-bold text-[#1B1B2F]/80 mt-0.5 block">{{ $registration->created_at ? $registration->created_at->format('M d, Y') : now()->format('M d, Y') }}</span>
+                </div>
+            </div>
+
+            <!-- QR Code Placeholder -->
+            <div class="pt-6 border-t-2 border-dashed border-[#C9C2AE] flex flex-col items-center justify-center text-center space-y-3">
+                <div class="p-4 bg-white rounded-2xl border-2 border-dashed border-[#C9C2AE] shadow-sm inline-block">
+                    <!-- Stylized SVG QR Placeholder -->
+                    <svg class="w-32 h-32 text-[#1B1B2F]" viewBox="0 0 100 100" fill="currentColor">
+                        <path d="M0,0 h30 v30 h-30 z M5,5 v20 h20 v-20 z M10,10 h10 v10 h-10 z" />
+                        <path d="M70,0 h30 v30 h-30 z M75,5 v20 h20 v-20 z M80,10 h10 v10 h-10 z" />
+                        <path d="M0,70 h30 v30 h-30 z M5,75 v20 h20 v-20 z M10,80 h10 v10 h-10 z" />
+                        <rect x="35" y="5" width="10" height="20" />
+                        <rect x="50" y="15" width="15" height="10" />
+                        <rect x="35" y="35" width="30" height="10" />
+                        <rect x="70" y="35" width="25" height="10" />
+                        <rect x="5" y="35" width="20" height="10" />
+                        <rect x="35" y="50" width="10" height="45" />
+                        <rect x="50" y="50" width="20" height="10" />
+                        <rect x="75" y="50" width="20" height="20" />
+                        <rect x="50" y="75" width="45" height="20" />
+                    </svg>
+                </div>
+                <span class="text-[11px] font-semibold text-[#1B1B2F]/40" style="font-family:'Space Mono',monospace;">Scan at entrance for verification</span>
+            </div>
+
+            <!-- Download Action -->
+            <div class="pt-4 border-t-2 border-dashed border-[#C9C2AE]">
+                <a href="{{ route('student.registrations.pdf', $registration) }}" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-bold bg-[#1B1B2F] text-white hover:bg-[#2A2A45] transition-all shadow-md">
+                    <svg class="w-4 h-4 text-[#E8A33D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download PDF Pass
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection --}}

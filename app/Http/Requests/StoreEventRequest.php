@@ -62,6 +62,7 @@ class StoreEventRequest extends FormRequest
                 'integer',
                 'min:1',
             ],
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 }
