@@ -14,8 +14,10 @@ The PDE Event Management System simplifies the organization of university events
 ---
 ## 📌 diagram de class
 <img width="565" height="259" alt="1" src="https://github.com/user-attachments/assets/1efbe3d3-fce2-4d54-9203-8168b54f5d5e" />
+
 ## 📌 diagram ERD
 <img width="558" height="251" alt="2" src="https://github.com/user-attachments/assets/5cd9e140-34e6-46eb-be01-f2271abe0e19" />
+
 ## 📌 diagram de use case
 <img width="555" height="434" alt="3" src="https://github.com/user-attachments/assets/ce0c1ace-9d54-49b7-a7c8-2fea4e56235d" />
 
