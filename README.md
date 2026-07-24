@@ -1,357 +1,286 @@
-You are an award-winning UI/UX designer and presentation designer.
+# 🎓 PDE Event Management System
 
-Create a modern, premium, elegant PowerPoint presentation for my graduation web project.
+A web application developed with **Laravel** to manage university events. The platform allows administrators (BDE) to create and manage events, while students can register online and receive a unique digital ticket.
 
-Project Title:
-PDE Event - Student Event Management Platform
+---
 
-Theme:
-Modern University + Technology + Event Management
+## 📌 Project Overview
 
-Design Style:
-- Apple keynote quality
-- Minimalist
-- Premium
-- Professional
-- Startup pitch deck
-- Dark and White combination
-- Glassmorphism
-- Soft gradients
-- Rounded cards
-- Clean spacing
-- Modern icons
-- Elegant animations suggestions
+The PDE Event Management System simplifies the organization of university events by providing two separate interfaces:
 
-Color Palette:
-Primary: #4F46E5 (Indigo)
-Secondary: #0F172A (Dark Slate)
-Accent: #06B6D4 (Cyan)
-Background: White with soft gradients
-Success: Emerald
-Warning: Amber
+- **Admin Dashboard** for managing events and registrations.
+- **Student Dashboard** for browsing events, registering, and viewing tickets.
 
-Typography:
-- Poppins
-- Inter
+---
 
-Use beautiful vector illustrations of:
-- Students
-- University
-- Calendar
-- Tickets
-- QR Code
-- Dashboard
+## ✨ Features
+
+### 👨‍💼 Admin
+
+- Secure authentication
+- Dashboard with statistics
+- Create events
+- Edit events
+- Delete events
+- Upload event images
+- Manage registrations
+- View registration details
+- Update registration status
+- Monitor remaining seats
+
+### 👨‍🎓 Student
+
+- Register & Login
+- Browse available events
+- View event details
+- Register for free events
+- Prevent duplicate registrations
+- View personal tickets
+- Download/View digital ticket
+- Edit profile
+- Update password
+
+---
+
+## 🛠 Technologies Used
+
+| Technology | Description |
+|------------|-------------|
+| Laravel 12 | Backend Framework |
+| PHP 8.2 | Programming Language |
+| MySQL | Database |
+| Blade | Template Engine |
+| Tailwind CSS | UI Design |
+| JavaScript | Frontend Interactions |
+| Vite | Asset Bundler |
+| Git & GitHub | Version Control |
+
+---
+
+## 📂 Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   ├── Requests/
+│   └── Middleware/
+│
+├── Models/
+│
+├── Policies/
+│
+├── Providers/
+│
+resources/
+├── views/
+│
+routes/
+├── web.php
+│
+database/
+├── migrations/
+├── seeders/
+```
+
+---
+
+## 🗄 Database
+
+Main tables:
+
+- users
+- events
+- registrations
+
+Relationships:
+
+- One User → Many Registrations
+- One Event → Many Registrations
+- Registration belongs to User
+- Registration belongs to Event
+
+---
+
+## 🔐 Authorization
+
+Laravel Policies are used to protect resources.
+
+Only administrators can:
+
+- Create events
+- Update events
+- Delete events
+- Manage registrations
+
+Students can:
+
+- Register to events
+- View their own tickets
+- Update their profile
+
+---
+
+## 🎫 Registration Process
+
+1. Student logs in.
+2. Student chooses an event.
+3. System checks:
+
+- Event is not full.
+- Student is not already registered.
+
+4. Registration is created.
+5. A unique ticket code is generated.
+
+Example:
+
+```
+BDE-2026-X8K4P
+```
+
+---
+
+## 📸 Event Images
+
+Administrators can upload an image for each event.
+
+Images are stored using Laravel Storage:
+
+```
+storage/app/public/events
+```
+
+and displayed with:
+
+```php
+asset('storage/' . $event->image_path)
+```
+
+---
+
+## 📊 Admin Dashboard
+
+Statistics include:
+
+- Total Events
+- Total Students
+- Total Registrations
+- Remaining Seats
+
+---
+
+## 👤 Student Dashboard
+
+Students can view:
+
+- Available Events
+- My Tickets
+- Confirmed Registrations
+- Profile Information
+
+---
+
+## 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/pde-event-management.git
+```
+
+Enter the project
+
+```bash
+cd pde-event-management
+```
+
+Install dependencies
+
+```bash
+composer install
+```
+
+Install frontend packages
+
+```bash
+npm install
+```
+
+Copy environment file
+
+```bash
+cp .env.example .env
+```
+
+Generate application key
+
+```bash
+php artisan key:generate
+```
+
+Configure your database in `.env`
+
+Run migrations
+
+```bash
+php artisan migrate
+```
+
+Create storage link
+
+```bash
+php artisan storage:link
+```
+
+Start the application
+
+```bash
+php artisan serve
+```
+
+Compile assets
+
+```bash
+npm run dev
+```
+
+---
+
+## 📷 Screenshots
+
+- Home Page
+- Student Dashboard
+- Admin Dashboard
+- Event Details
+- Registration Ticket
+- Profile
 - Event Management
-- Admin Panel
-- Laptop
-- Mobile
-- Database
-- Team Collaboration
 
-The presentation must contain these sections.
+*(Add screenshots here after finishing the project.)*
 
---------------------------------------------------------
+---
 
-Slide 1
-Cover Page
+## 📋 Project Rules
 
-Large modern illustration of students using an event platform.
+- Only admins can manage events.
+- Students cannot register twice.
+- Capacity cannot be exceeded.
+- Every registration has a unique ticket code.
+- Event capacity must be greater than zero.
 
-Title:
-PDE Event
+---
 
-Subtitle:
-Student Event Management Platform
+## 👨‍💻 Author
 
-Author:
-Achraf Outamghart
+**Achraf Outamghart**
 
-Technology:
-Laravel • PHP • MySQL • Tailwind CSS
+Full Stack Web Development Student
 
---------------------------------------------------------
+Laravel • PHP • MySQL • Tailwind CSS • JavaScript
 
-Slide 2
-Project Context
+---
 
-Explain the problem:
+## 📄 License
 
-Students miss university events.
-
-No centralized registration system.
-
-Manual reservation management.
-
-No digital tickets.
-
-Need an online platform.
-
-Illustration:
-Students + Calendar + University.
-
---------------------------------------------------------
-
-Slide 3
-Objectives
-
-Show objectives inside modern cards.
-
-Objectives:
-
-• Digitalize event management
-
-• Simplify student registration
-
-• Manage capacities
-
-• Generate reservation tickets
-
-• Improve organization
-
---------------------------------------------------------
-
-Slide 4
-System Actors
-
-Beautiful infographic.
-
-Actors:
-
-Administrator (BDE)
-
-Student
-
-Show icons with responsibilities.
-
---------------------------------------------------------
-
-Slide 5
-Main Features
-
-Admin:
-
-Create Event
-
-Edit Event
-
-Delete Event
-
-Manage Registrations
-
-Dashboard
-
-Statistics
-
-Student:
-
-Browse Events
-
-Register
-
-View Ticket
-
-Profile
-
---------------------------------------------------------
-
-Slide 6
-Application Architecture
-
-Modern architecture diagram.
-
-Browser
-
-↓
-
-Laravel
-
-↓
-
-Controllers
-
-↓
-
-Services
-
-↓
-
-Models
-
-↓
-
-MySQL
-
---------------------------------------------------------
-
-Slide 7
-Database (ERD)
-
-Placeholder for ERD.
-
-Use elegant database illustration.
-
-Tables:
-
-Users
-
-Events
-
-Registrations
-
---------------------------------------------------------
-
-Slide 8
-Use Case Diagram
-
-Placeholder for Use Case.
-
-Illustration around it.
-
---------------------------------------------------------
-
-Slide 9
-Class Diagram
-
-Placeholder.
-
-Modern UML style.
-
---------------------------------------------------------
-
-Slide 10
-Planning
-
-Modern Trello style Kanban.
-
-Columns:
-
-To Do
-
-Doing
-
-Done
-
-Show colored task cards.
-
---------------------------------------------------------
-
-Slide 11
-Technologies
-
-Beautiful technology cards.
-
-Laravel
-
-PHP
-
-MySQL
-
-Tailwind CSS
-
-Blade
-
-Git
-
-GitHub
-
-VS Code
-
---------------------------------------------------------
-
-Slide 12
-Application Screens
-
-Modern phone + laptop mockups.
-
-Include placeholders for:
-
-Login
-
-Register
-
-Dashboard Admin
-
-Dashboard Student
-
-Events
-
-Registration
-
-Profile
-
-Ticket
-
---------------------------------------------------------
-
-Slide 13
-GitHub
-
-Beautiful Git timeline.
-
-Show:
-
-Commits
-
-Branches
-
-Version Control
-
-Deployment readiness
-
---------------------------------------------------------
-
-Slide 14
-Results
-
-Modern statistics cards.
-
-Examples:
-
-✔ Event Management
-
-✔ Student Registration
-
-✔ Digital Ticket
-
-✔ Admin Dashboard
-
-✔ Responsive Design
-
---------------------------------------------------------
-
-Slide 15
-Conclusion
-
-Future Improvements:
-
-Email Notifications
-
-QR Code Check-in
-
-Payment Gateway
-
-Mobile Application
-
-Analytics Dashboard
-
-End with a modern "Thank You" page.
-
---------------------------------------------------------
-
-General Requirements
-
-Use lots of white space.
-
-Use premium illustrations.
-
-Use elegant icons.
-
-Every slide should look unique.
-
-Do not repeat layouts.
-
-Keep text concise.
-
-Make the presentation look like it was designed by a professional UI/UX designer from Apple or Google.
-
-Output the presentation in a modern visual style ready for PowerPoint or Canva.
+This project was developed for educational purposes.
