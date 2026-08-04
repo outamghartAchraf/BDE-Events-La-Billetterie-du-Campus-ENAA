@@ -14,10 +14,11 @@
 <body class="h-full font-['Inter',sans-serif] text-gray-800 antialiased bg-gray-50">
     <div class="min-h-full flex">
         <!-- Fixed Sidebar (220px) -->
-        <aside class="w-[220px] bg-white border-r border-gray-200/80 fixed inset-y-0 left-0 z-30 flex flex-col justify-between shadow-xs">
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-20 hidden lg:hidden" onclick="toggleSidebar()"></div>
+        <aside id="sidebar" class="w-[220px] bg-white border-r border-gray-200/80 fixed inset-y-0 left-0 z-30 flex flex-col justify-between shadow-xs transition-transform duration-300 -translate-x-full lg:translate-x-0">
             <div>
                 <!-- Brand / Logo -->
-                <div class="h-[72px] px-6 flex items-center gap-3 border-b border-gray-100">
+                <div class="h-[72px] px-6 flex items-center gap-3 border-b border-gray-100 relative">
                     <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md shadow-indigo-200">
                         U
                     </div>
@@ -25,6 +26,11 @@
                         <span class="text-sm font-extrabold text-gray-900 tracking-tight block leading-tight">UniPlatform</span>
                         <span class="text-[10px] font-semibold text-indigo-600 uppercase tracking-wider block">Student Portal</span>
                     </div>
+                    <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 lg:hidden text-gray-500 hover:text-gray-700" onclick="toggleSidebar()" aria-label="Close sidebar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M6 18L18 6"/>
+                        </svg>
+                    </button>
                 </div>
 
                 <!-- Navigation Links -->
@@ -76,15 +82,21 @@
         </aside>
 
         <!-- Main Wrapper -->
-        <div class="pl-[220px] flex-1 flex flex-col min-w-0">
+        <div class="lg:pl-[220px] flex-1 flex flex-col min-w-0">
             <!-- Sticky Navbar (72px height) -->
             <header class="h-[72px] sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-gray-200/80 px-8 flex items-center justify-between">
-                <div>
+                <button type="button" class="lg:hidden mr-3 inline-flex items-center justify-center w-10 h-10 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 shrink-0" onclick="toggleSidebar()" aria-label="Open sidebar">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+
+                <div class="min-w-0 flex-1">
                     <h1 class="text-sm font-bold text-gray-900">@yield('page-title', 'Student Portal')</h1>
-                    <p class="text-xs text-gray-400 mt-0.5">Welcome back to your campus dashboard</p>
+                    <p class="text-xs text-gray-400 mt-0.5 truncate">Welcome back to your campus dashboard</p>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-4 shrink-0 flex-nowrap">
                     <!-- Search Bar -->
                     <div class="relative hidden sm:block w-64">
                         <input type="text" placeholder="Search events, tickets..." class="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200/80 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-gray-400">
@@ -108,7 +120,7 @@
             </header>
 
             <!-- Page Content -->
-            <main class="p-8 flex-1">
+            <main class="p-4 lg:p-8 flex-1">
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center justify-between shadow-xs">
                         <div class="flex items-center gap-2.5">
@@ -131,5 +143,12 @@
             </main>
         </div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

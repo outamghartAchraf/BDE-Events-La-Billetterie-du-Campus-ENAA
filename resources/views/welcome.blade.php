@@ -197,7 +197,7 @@
                 </div>
             </div>
         </section>
-
+              <a href="{{ route('static') }}">static</a>
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
 
             <!-- 2. Statistics — split-flap departure board -->

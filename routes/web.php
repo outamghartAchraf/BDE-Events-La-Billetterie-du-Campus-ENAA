@@ -8,6 +8,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Admin\AdminRegistrationController;
+use App\Http\Controllers\ReporterController;
 use App\Models\Event;
 
 
@@ -76,3 +77,13 @@ Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
     Route::get('/student/profile/edit', [AuthController::class, 'EditProfile'])->name('student.profile.edit');
     Route::put('/student/profile', [AuthController::class, 'updateProfile'])->name('student.profile.update');
 });
+
+
+// reporter
+
+Route::middleware(['auth', 'reporter'])->prefix('reporter')->group(function () {
+
+    Route::get('/reporter/static', [ReporterController::class, 'index'])->name('static');
+
+});
+
