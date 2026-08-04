@@ -12,14 +12,37 @@
             <p class="text-xs text-[#1B1B2F]/50 mt-0.5">Manage and track all scheduled university activities.</p>
         </div>
 
-        <div class="flex items-center gap-3">
-            <!-- Table Search Bar -->
-            <div class="relative w-48 sm:w-60">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#1B1B2F]/30">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </span>
-                <input type="text" placeholder="Filter table..." class="w-full pl-8 pr-3 py-2 text-xs bg-[#FAF7EF] border border-[#C9C2AE]/70 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E8A33D]/25 focus:border-[#E8A33D] transition-all">
-            </div>
+ 
+  <div class="flex items-center gap-3">
+
+    <form method="GET" action="{{ route('events.index') }}" class="flex items-center gap-3">
+
+        <!-- Search -->
+        <div class="relative w-64">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#1B1B2F]/30">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Search events..."
+                class="w-full pl-10 pr-4 py-2 text-sm bg-[#FAF7EF] border border-[#C9C2AE]/70 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E8A33D]/25 focus:border-[#E8A33D] transition-all"
+            >
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+ 
 
             <!-- Create Button -->
             <a href="{{ route('events.create') }}"
@@ -37,10 +60,10 @@
                 <tr class="bg-[#FAF7EF] border-b border-[#C9C2AE]/60 text-[10px] font-bold text-[#1B1B2F]/40 uppercase tracking-wider" style="font-family:'Space Mono',monospace;">
                     <th class="px-6 py-3.5">#</th>
                     <th class="px-6 py-3.5">Title</th>
-                    <th class="px-6 py-3.5">Date & Time</th>
+                    <th class="w-44 px-6 py-3.5">Date & Time</th>
                     <th class="px-6 py-3.5">Location</th>
-                    <th class="px-6 py-3.5">Price</th>
-                    <th class="px-6 py-3.5">Capacity</th>
+                   <th class="w-32 px-6 py-3.5">Price</th>
+                   <th class="w-32 px-6 py-3.5">Capacity</th>
                     <th class="px-6 py-3.5 text-center">Actions</th>
                 </tr>
             </thead>
@@ -49,21 +72,30 @@
                     <tr class="hover:bg-[#FAF7EF]/60 transition-colors">
                         <td class="px-6 py-4 text-[#1B1B2F]/30" style="font-family:'Space Mono',monospace;">#{{ $event->id }}</td>
                         <td class="px-6 py-4 font-bold text-[#1B1B2F]" style="font-family:'Fraunces',serif;">{{ $event->title }}</td>
-                        <td class="px-6 py-4 text-[#1B1B2F]/60">
-                            <div class="font-semibold text-[#1B1B2F]/80">{{ $event->date }}</div>
-                            <div class="text-[11px] text-[#1B1B2F]/40" style="font-family:'Space Mono',monospace;">{{ $event->time }}</div>
-                        </td>
+                <td class="w-44 px-6 py-4">
+    <div class="flex flex-col">
+        <span class="font-semibold text-[#1B1B2F]/80 whitespace-nowrap">
+            {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}
+        </span>
+
+        <span class="text-[11px] text-[#1B1B2F]/40 font-mono whitespace-nowrap">
+            {{ \Carbon\Carbon::parse($event->time)->format('H:i') }}
+        </span>
+    </div>
+</td>
                         <td class="px-6 py-4 text-[#1B1B2F]/60">{{ $event->location }}</td>
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold border-2 border-[#C1443C] text-[#C1443C]" style="font-family:'Space Mono',monospace; transform: rotate(-3deg); display:inline-block;">
-                                {{ number_format($event->price, 2) }} DH
-                            </span>
+                       <span
+    class="inline-flex justify-center items-center w-24 px-2 py-1 rounded-md text-[11px] font-bold border-2 border-[#C1443C] text-[#C1443C]"
+    style="font-family:'Space Mono', monospace; transform: rotate(-3deg);">
+    {{ number_format($event->price, 2) }} DH
+</span>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#E8A33D]/10 text-[#B87A1F] border border-[#E8A33D]/30">
-                                {{ $event->capacity }} places
-                            </span>
-                        </td>
+      <td class="w-32 px-6 py-4">
+    <span class="inline-flex justify-center items-center w-24 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#E8A33D]/10 text-[#B87A1F] border border-[#E8A33D]/30">
+        {{ $event->capacity }} places
+    </span>
+</td>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center gap-1">
                                 <!-- View Button -->

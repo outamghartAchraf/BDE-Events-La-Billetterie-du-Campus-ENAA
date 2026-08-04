@@ -1,18 +1,18 @@
 <header class="sticky top-0 z-30 h-[72px] bg-white/90 backdrop-blur-md border-b-2 border-dashed border-[#C9C2AE] px-8 flex items-center justify-between transition-all" style="font-family:'Inter',sans-serif;">
     <!-- Title Section -->
-    <div>
-        <h1 class="text-base font-bold text-[#1B1B2F] tracking-tight" style="font-family:'Fraunces',serif;">
+    <div class="min-w-0 flex-1 pr-3">
+        <h1 class="text-base font-bold text-[#1B1B2F] tracking-tight truncate" style="font-family:'Fraunces',serif;">
             @yield('page-title', 'Dashboard')
         </h1>
-        <p class="text-xs text-[#1B1B2F]/40 font-medium">
+        <p class="text-xs text-[#1B1B2F]/40 font-medium truncate">
             Welcome back, <span class="text-[#1B1B2F]/80 font-semibold">{{ auth()->user()->name }}</span>
         </p>
     </div>
 
     <!-- Actions & User Profile -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 shrink-0 flex-nowrap">
         <!-- Search Bar -->
-        <div class="relative w-60">
+        <div class="relative w-60 hidden md:block">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#1B1B2F]/30">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </span>

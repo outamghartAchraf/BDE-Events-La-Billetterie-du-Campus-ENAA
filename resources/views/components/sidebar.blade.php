@@ -1,7 +1,9 @@
-<aside class="w-[220px] fixed top-0 bottom-0 left-0 bg-white border-r border-[#C9C2AE]/60 flex flex-col justify-between z-40 transition-all duration-300" style="font-family:'Inter',sans-serif;">
+<div id="sidebar-overlay" class="fixed inset-0 z-30 bg-black/40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+<aside id="sidebar" class="w-[220px] fixed top-0 bottom-0 left-0 bg-white border-r border-[#C9C2AE]/60 flex flex-col justify-between z-40 transition-transform duration-300 -translate-x-full lg:translate-x-0" style="font-family:'Inter',sans-serif;">
     <div>
         <!-- Brand Header (Height aligned to Navbar) -->
-        <div class="h-[72px] px-5 flex items-center gap-3 border-b-2 border-dashed border-[#C9C2AE]">
+        <div class="h-[72px] px-5 flex items-center gap-3 border-b-2 border-dashed border-[#C9C2AE] relative">
             <div class="w-8 h-8 rounded-full bg-[#1B1B2F] flex items-center justify-center text-[#E8A33D] font-black text-base shadow-sm" style="font-family:'Fraunces',serif;">
                 B
             </div>
@@ -9,6 +11,11 @@
                 <h1 class="text-sm font-bold text-[#1B1B2F] tracking-tight leading-none" style="font-family:'Fraunces',serif;">BDE Events</h1>
                 <p class="text-[10px] text-[#1B1B2F]/40 font-medium tracking-wider mt-0.5" style="font-family:'Space Mono',monospace;">ADMIN PANEL</p>
             </div>
+            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 lg:hidden text-[#1B1B2F]/60 hover:text-[#1B1B2F]" onclick="toggleSidebar()" aria-label="Close sidebar">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M6 18L18 6"/>
+                </svg>
+            </button>
         </div>
 
         <!-- Navigation Menu -->

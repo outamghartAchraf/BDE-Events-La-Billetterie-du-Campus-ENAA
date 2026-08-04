@@ -17,6 +17,7 @@ class AdminRegistrationController extends Controller
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
+                
                 $q->whereHas('user', function ($user) use ($search) {
                     $user->where('name', 'like', "%{$search}%");
                 })

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Registration extends Model
 {
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    
     protected $fillable = [
         'user_id',
         'event_id',

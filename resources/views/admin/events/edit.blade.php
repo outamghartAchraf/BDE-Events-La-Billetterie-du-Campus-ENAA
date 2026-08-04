@@ -18,7 +18,7 @@
 
         <!-- Form Wrapper -->
         <div class="p-6 sm:p-8">
-            <form action="{{ route('events.update', $event) }}" method="POST" class="text-[#1B1B2F]">
+            <form action="{{ route('events.update', $event) }}" method="POST" enctype="multipart/form-data" class="text-[#1B1B2F]">
                 @csrf
                 @method('PUT')
 

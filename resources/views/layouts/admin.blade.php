@@ -27,12 +27,20 @@
     @include('components.sidebar')
 
     <!-- Main Content Area with 220px Left Margin -->
-    <div class="flex-1 flex flex-col min-w-0 pl-[220px]">
+    <div class="flex-1 flex flex-col min-w-0 lg:pl-[220px]">
+        <div class="lg:hidden h-[72px] flex items-center px-4 bg-white border-b-2 border-dashed border-[#C9C2AE]">
+            <button type="button" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-[#1B1B2F] hover:bg-[#FAF7EF]" onclick="toggleSidebar()" aria-label="Open sidebar">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
         <!-- Sticky 72px Top Navbar -->
         @include('components.navbar')
 
         <!-- Scrollable Main Canvas -->
-        <main class="flex-1 p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main class="flex-1 p-4 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
             <!-- Flash Messages -->
             @if(session('success'))
                 <div class="flex items-center gap-3 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm transition-all animate-fade-in">
@@ -56,6 +64,20 @@
         </main>
     </div>
 </div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        if (!sidebar || !overlay) {
+            return;
+        }
+
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+</script>
 
 </body>
 </html>
