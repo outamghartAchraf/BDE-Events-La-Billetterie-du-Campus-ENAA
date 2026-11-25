@@ -34,7 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('events', EventController::class);
     
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 // Student Routes
 Route::middleware(['auth', 'student'])->prefix('student')->group(function () {
 
-    Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/student/events', [StudentEventController::class, 'index'])
         ->name('student.events.index');
 

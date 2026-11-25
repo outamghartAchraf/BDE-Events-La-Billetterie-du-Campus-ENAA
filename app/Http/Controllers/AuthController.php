@@ -34,11 +34,11 @@ class AuthController extends Controller
         Auth::login($user);
 
         if ($user->role === 'admin') {
-            return redirect('/admin/dashboard')
+            return redirect()->route('admin.dashboard')
                 ->with('success', 'Welcome Admin!');
         }
 
-        return redirect('/student/dashboard')
+        return redirect()->route('student.dashboard')
             ->with('success', 'Welcome Student!');
     }
 
