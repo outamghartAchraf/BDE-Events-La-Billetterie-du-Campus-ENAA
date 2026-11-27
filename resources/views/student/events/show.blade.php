@@ -15,8 +15,12 @@
     <div class="bg-white rounded-3xl border border-gray-200/80 shadow-xs overflow-hidden">
         <!-- Hero Image Cover -->
         <div class="relative h-72 md:h-96 w-full bg-gray-900">
-            <img     src="{{ $event->image_path ? asset('storage/' . $event->image_path) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60' }}"
- alt="{{ $event->title }}" class="w-full h-full object-cover opacity-90">
+            <img src="{{ $event->image_url }}"
+                alt="{{ $event->title }}"
+                loading="lazy"
+                decoding="async"
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
+                class="w-full h-full object-cover opacity-90">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             
             <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">

@@ -92,8 +92,12 @@
                 @forelse($recommendedEvents as $event)
                     <div class="bg-white rounded-2xl border border-gray-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
                         <div class="relative h-40 overflow-hidden bg-gray-100">
-                            <img     src="{{ $event->image_path ? asset('storage/' . $event->image_path) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60' }}"
- alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ $event->image_url }}"
+                                alt="{{ $event->title }}"
+                                loading="lazy"
+                                decoding="async"
+                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/90 backdrop-blur-md text-gray-900 shadow-sm border border-white/20">
                                 {{ $event->price > 0 ? number_format($event->price, 2) . ' DH' : 'Free' }}
                             </span>

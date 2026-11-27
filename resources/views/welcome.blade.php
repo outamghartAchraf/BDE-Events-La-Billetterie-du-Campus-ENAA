@@ -281,8 +281,11 @@
                         <div
                             class="lift relative bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden flex flex-col group">
                             <div class="relative h-44 overflow-hidden bg-gray-100">
-                                <img src="{{ $event->image_path ? asset('storage/' . $event->image_path) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60' }}"
+                                <img src="{{ $event->image_url }}"
                                     alt="{{ $event->title }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 <span
                                     class="stamp absolute top-3 right-3 px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/90 text-[var(--stub-red)]">

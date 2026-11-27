@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Event; 
 use App\Http\Requests\StoreEventRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEventRequest;
-use Illuminate\Support\Facades\Storage;
- 
-
+use App\Models\Event;
+use App\Services\ImageDataUriService;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    public function __construct(private ImageDataUriService $imageDataUriService) {}
+
     public function index()
     {
-        //search and pagination
         $query = Event::query();
-          
+
         $search = request()->input('search');
         if ($search) {
             $query->where('title', 'like', "%{$search}%")
                 ->orWhere('location', 'like', "%{$search}%");
-               
         }
-
 
         $events = $query->latest()->paginate(10);
 
@@ -36,29 +33,33 @@ class EventController extends Controller
      */
     public function create()
     {
-          $this->authorize('create', Event::class);
+        $this->authorize('create', Event::class);
+
         return view('admin.events.create');
     }
 
     /**
      * Store a new event.
      */
-public function store(StoreEventRequest $request)
-{
-    $data = $request->validated();
+    public function store(StoreEventRequest $request)
+    {
+        $data = $request->validated();
+        $image = $request->file('image');
+        unset($data['image']);
 
-    $data['created_by'] = Auth::id();
+        $data['created_by'] = Auth::id();
 
-    if ($request->hasFile('image')) {
-        $data['image_path'] = $request->file('image')->store('events', 'public');
+        if ($image instanceof UploadedFile) {
+            $data['image_path'] = $this->imageDataUriService->encode($image);
+        }
+
+        Event::create($data);
+
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'Event created successfully.');
     }
 
-    Event::create($data);
-
-    return redirect()
-        ->route('events.index')
-        ->with('success', 'Event created successfully.');
-}
     /**
      * Display one event.
      */
@@ -72,36 +73,32 @@ public function store(StoreEventRequest $request)
      */
     public function edit(Event $event)
     {
-            $this->authorize('update', $event);
+        $this->authorize('update', $event);
+
         return view('admin.events.edit', compact('event'));
     }
 
     /**
      * Update event.
      */
-public function update(UpdateEventRequest $request, Event $event)
-{
-      $this->authorize('update', $event);
+    public function update(UpdateEventRequest $request, Event $event)
+    {
+        $this->authorize('update', $event);
 
-    $data = $request->validated();
+        $data = $request->validated();
+        $image = $request->file('image');
+        unset($data['image']);
 
-    if ($request->hasFile('image')) {
-
-        // Delete old image
-        if ($event->image_path && Storage::disk('public')->exists($event->image_path)) {
-            Storage::disk('public')->delete($event->image_path);
+        if ($image instanceof UploadedFile) {
+            $data['image_path'] = $this->imageDataUriService->encode($image);
         }
 
-        // Store new image
-        $data['image_path'] = $request->file('image')->store('events', 'public');
+        $event->update($data);
+
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'Event updated successfully.');
     }
-
-    $event->update($data);
-
-    return redirect()
-        ->route('events.index')
-        ->with('success', 'Event updated successfully.');
-}
 
     /**
      * Delete event.

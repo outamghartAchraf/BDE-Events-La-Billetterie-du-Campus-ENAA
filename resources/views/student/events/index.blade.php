@@ -36,8 +36,11 @@
                     class="bg-white rounded-2xl border border-gray-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
                     <!-- Card Cover Image -->
                     <div class="relative h-48 overflow-hidden bg-gray-100">
-                        <img src="{{ $event->image_path ? asset('storage/' . $event->image_path) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60' }}"
+                        <img src="{{ $event->image_url }}"
                             alt="{{ $event->title }}"
+                            loading="lazy"
+                            decoding="async"
+                            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
 
                         <!-- Price Badge -->

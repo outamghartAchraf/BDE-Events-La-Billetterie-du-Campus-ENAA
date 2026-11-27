@@ -50,8 +50,11 @@
     @isset($event)
         @if($event->image_path)
             <div class="mt-4">
-                <img src="{{ asset('storage/' . $event->image_path) }}"
+                <img src="{{ $event->image_url }}"
                      alt="{{ $event->title }}"
+                     loading="lazy"
+                     decoding="async"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
                      class="w-48 h-32 object-cover rounded-xl border border-gray-200">
             </div>
         @endif

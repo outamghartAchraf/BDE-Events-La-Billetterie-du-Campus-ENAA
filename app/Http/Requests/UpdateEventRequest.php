@@ -63,7 +63,7 @@ class UpdateEventRequest extends FormRequest
                 'min:1',
             ],
 
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

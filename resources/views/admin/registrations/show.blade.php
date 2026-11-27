@@ -45,7 +45,12 @@
 
                 <div class="flex flex-col sm:flex-row gap-5">
                     @if(isset($registration->event->image_url))
-                        <img src="{{ $registration->event->image_url }}" alt="{{ $registration->event->title }}" class="w-full sm:w-32 h-32 rounded-xl object-cover border border-[#C9C2AE]/60 shrink-0">
+                        <img src="{{ $registration->event->image_url }}"
+                             alt="{{ $registration->event->title }}"
+                             loading="lazy"
+                             decoding="async"
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80';"
+                             class="w-full sm:w-32 h-32 rounded-xl object-cover border border-[#C9C2AE]/60 shrink-0">
                     @endif
                     <div class="space-y-2 flex-1">
                         <h4 class="text-base font-bold text-[#1B1B2F]" style="font-family:'Fraunces',serif;">{{ $registration->event->title ?? 'Event Title Unavailable' }}</h4>
